@@ -1,2 +1,17 @@
-{% #The main template of the application - shows the registration form on visit %}
+{# The main template of the application - shows the registration form on visit #}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{# Include bootstrap css #}
+		<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
 
+	<body>
+		<h1>{{ title }}</h1>
+		{# Include jQuery and Bootstrap JavaScript #}
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
