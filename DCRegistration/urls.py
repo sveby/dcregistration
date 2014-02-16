@@ -9,4 +9,10 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    
+    #Conferences namespace:
+    #url(r'^conference/', include('Conference.urls', namespace='conf')),
+    
+    #Registrations namespace:
+    #url(r'^register/', include('Confreg.urls', namespace='reg')),
 )

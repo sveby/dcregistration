@@ -4,4 +4,5 @@ from django.http import *
 from django.template import RequestContext, loader
 
 def home(request):
-    return HttpResponse("test")
+    data = []
+    return render(request, 'app_index.html', data)
