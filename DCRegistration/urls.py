@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     #url(r'^conference/', include('Conference.urls', namespace='conf')),
     
     #Registrations namespace:
-    #url(r'^register/', include('Confreg.urls', namespace='reg')),
+    url(r'^register/', include('Confreg.urls', namespace='reg')),
 )

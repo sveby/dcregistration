@@ -1,0 +1,18 @@
+{% extends "app_index.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+    <div class="row">
+        {{ conference_id }}
+        {% if form.errors %}
+           <p>{%trans "Neispravno upisani podaci!" %}</p>
+        {% endif %}
+	</div>
+	
+{% block content %}
+    <form action="{% url 'reg:show_registration' conference_id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% trans "Pošalji!" %}" />
+    </form>
+{% endblock %}
