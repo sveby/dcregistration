@@ -19,7 +19,7 @@ class Person(models.Model):
     email = models.EmailField(null = False, blank = False)
     phone = models.CharField(max_length=20)
     registration = models.ForeignKey(Registration, null = False)
-    conference_packages = models.ManyToManyField(Conference.ConferencePackage)
+    conference_options = models.ManyToManyField(Conference.ConferencePackageOption)
     discounts = models.ManyToManyField(Conference.Discount)
     
     def __unicode__(self):

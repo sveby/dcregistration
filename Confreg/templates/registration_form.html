@@ -1,18 +1,90 @@
 {% extends "app_index.html" %}
 {% load i18n %}
 {% load staticfiles %}
-
-    <div class="row">
-        {{ conference_id }}
-        {% if form.errors %}
-           <p>{%trans "Neispravno upisani podaci!" %}</p>
-        {% endif %}
-	</div>
 	
-{% block content %}
-    <form action="{% url 'reg:show_registration' conference_id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="{% trans "Pošalji!" %}" />
-    </form>
-{% endblock %}
+    {% block content %}
+        <h3 class="conference_name">{{ conference.name }}</h3>
+        <p class="conference_description">{{ conference.description }} </p>
+        
+        {% if step_1 %}
+            <script>
+                function toggleForms() {
+                    if ($("#registration_type").val() == "personal") {
+                        $("#company").hide();
+                        $("#personal").fadeIn("fast");
+                    } else {
+                        $("#personal").hide();
+                        $("#company").fadeIn("fast");
+                    }
+                }
+                
+                $(function() {
+                    $("#personal").hide();$("#company").hide();
+                    $("#{{show_form}}").fadeIn("fast");
+                });
+            </script>
+
+            {% if company_form.errors or person_form.errors %}
+                <div class="row">
+                   <p>{%trans "Neispravno upisani podaci!" %}</p>
+    	        </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>
+                        {% trans 'Odaberite tip registracije' %}
+                        <select id="registration_type" name="registration_type" onchange="toggleForms()">
+                            <option value="personal" {% if show_form = 'personal' %} selected='selected' {% endif %} >{% trans 'Osobno' %}</option>{{show_form}}
+                            <option value="company"  {% if show_form = 'company' %} selected='selected' {% endif %}>{% trans 'Tvrtka' %}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <form id="personal" style="" action="{% url 'reg:show_registration' conference.id %} " method="POST">
+                        {% csrf_token %}
+                        <table>{{ person_form.as_table }}
+                            <tr>
+                                <td>{% trans 'Number of people to register' %} </td><td><input type="text" name="num_people" value="1"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="OK!" name="person_submit"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                    
+                    <form id="company" style="" action="{% url 'reg:show_registration' conference.id %}" method="POST">
+                        {% csrf_token %}
+                        <table>{{ company_form.as_table }}
+                            <tr>
+                                <td>{% trans 'Number of people to register' %} </td><td><input type="text" name="num_people" value="1"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="OK!" name="company_submit"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            
+            
+            
+        {% elif step_2 %}
+            Drugi korak! 
+            
+            
+            
+        {% elif step_3 %}
+            <form action="{% url 'reg:show_registration' conference.id %}" method="post">
+                {% csrf_token %}
+                {#{ form.as_table }#}
+                {% for f in person_formset %}  
+                    <table>
+                    {{ f.as_table }}
+                    </table>
+                {% endfor %}
+                <input type="submit" value="{% trans "Pošalji!" %}" />
+            </form>
+        {% endif %}
+        
+    {% endblock %}

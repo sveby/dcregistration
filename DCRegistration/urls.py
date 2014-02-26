@@ -1,7 +1,12 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import admin
 admin.autodiscover()
+
+#Add dajaxice
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+dajaxice_autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -15,4 +20,10 @@ urlpatterns = patterns('',
     
     #Registrations namespace:
     url(r'^register/', include('Confreg.urls', namespace='reg')),
+    
+    #Django Ajax URLs:
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
+
+#Added because Dajaxice needs it:
+urlpatterns += staticfiles_urlpatterns()

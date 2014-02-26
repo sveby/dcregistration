@@ -1,19 +1,25 @@
 {% load staticfiles %}
 {% load i18n %}
+{% load dajaxice_templatetags %}
 
 {# The main template of the conference registration application - basically shows the registration form on visit #}
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>{% trans "Prijava za konferenciju" %}</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 		{# Include bootstrap css #}
-		<link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
-		<link href="{% static "bootstrap/css/bootstrap-responsive.min.css" %}" rel="stylesheet" media="screen">
+		<link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet" media="screen">
+		<link href="{% static "bootstrap/css/bootstrap-theme.min.css" %}" rel="stylesheet" media="screen">
 		
 		{# Include jQuery and Bootstrap JavaScript #}
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+		
+		{# Django Ajax JavaScript import: #}
+		{% dajaxice_js_import %}
+		
 	</head>
 
 	<body>
@@ -22,7 +28,7 @@
                 <h1>{% trans "Prijava za konferenciju" %}</h1>
             </div>
             
-            <div class="row content">
+            <div class="content">
                 {% block content %}{% endblock %}
             </div>
 		    
